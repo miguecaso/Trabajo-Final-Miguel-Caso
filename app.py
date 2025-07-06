@@ -2,6 +2,20 @@ import streamlit as st
 import pandas as pd
 from collections import defaultdict
 
+# Fondo con imagen de cielo nocturno estrellado
+st.markdown("""
+    <style>
+    .stApp {
+        background-image: url('https://images.unsplash.com/photo-1518984561899-cf2dc182d98b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGVzcGFjaW8lMjBuZWdyb3xlbnwwfHwwfHx8MA%3D%3D');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #0b0c10;  /* color oscuro de respaldo */
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Cargar base de datos
 df = pd.read_csv("peliculas_nolan_con_imagenes.csv")
 
