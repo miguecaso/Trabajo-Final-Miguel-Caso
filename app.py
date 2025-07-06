@@ -13,11 +13,11 @@ if st.session_state.inicio:
     nombre = st.text_input("¿Cómo te llamas?")
     conoce = st.radio("¿Conoces a Christopher Nolan?", ["Sí", "No"])
 
-    if st.button("Comenzar Test"):
-        st.session_state.inicio = False
-
 if not st.session_state.inicio:
     st.markdown("**Christopher Nolan** es un director británico reconocido por sus películas complejas, filosóficas y visualmente impactantes. Este test te ayudará a descubrir qué película de Nolan se parece más a ti.")
+
+    if st.button("Comenzar Test"):
+        st.session_state.inicio = False
 
 # Inicializar estado
 if "pregunta" not in st.session_state:
