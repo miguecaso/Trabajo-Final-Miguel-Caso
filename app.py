@@ -217,7 +217,7 @@ else:
 criticas_df = pd.read_csv("criticas_nolan.csv")
 
 # Mostrar críticas positivas y negativas
-st.markdown("### 🗣️ Opiniones sobre esta película")
+st.markdown("### Opiniones sobre esta película")
 
 positivas = criticas_df[(criticas_df["Título"] == peli_final) & (criticas_df["Tipo"] == "Positivas")]["Comentario"].tolist()
 negativas = criticas_df[(criticas_df["Título"] == peli_final) & (criticas_df["Tipo"] == "Negativas")]["Comentario"].tolist()
