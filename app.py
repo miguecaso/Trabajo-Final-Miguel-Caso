@@ -6,32 +6,13 @@ from collections import defaultdict
 st.markdown("""
     <style>
     .stApp {
-        background-image: url("https://wallpapers.com/images/high/4k-black-3840-x-2160-background-brauz9m0zdygsagi.webp");
+        background-image: url("https://img.freepik.com/foto-gratis/textura-pared-verde-lisa-llana_53876-129746.jpg?semt=ais_hybrid&w=740");
         background-size: cover;
         background-attachment: fixed;
         background-position: center;
         background-repeat: no-repeat;
         background-color: #0b0c10;  /* color oscuro de respaldo */
     }
-    </style>
-""", unsafe_allow_html=True)
-
-# Aplicar estilo CSS para fondo oscuro y texto blanco
-st.markdown("""
-    <style>
-        body {
-            background-color: #0e1117;
-            color: white;
-        }
-        .stTextInput > div > div > input {
-            color: white;
-        }
-        .stRadio, .stMultiSelect {
-            color: white !important;
-        }
-        .stMarkdown, .stText, .stDataFrame {
-            color: white !important;
-        }
     </style>
 """, unsafe_allow_html=True)
 
