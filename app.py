@@ -7,14 +7,20 @@ df = pd.read_csv("peliculas_nolan_con_imagenes.csv")
 
 # Configuración de página
 st.set_page_config(page_title="Test Nolan", page_icon="🎬")
-st.title("Test de Personalidad: ¿Qué película de Nolan eres tú?")
 
-# Inicializar estado
+# --- Inicialización de estados ---
+if "inicio" not in st.session_state:
+    st.session_state.inicio = False
+if "nombre" not in st.session_state:
+    st.session_state.nombre = ""
 if "pregunta" not in st.session_state:
     st.session_state.pregunta = 1
+if "puntajes" not in st.session_state:
     st.session_state.puntajes = defaultdict(int)
+if "respuestas" not in st.session_state:
+    st.session_state.respuestas = {}
 
-# Diccionario de preguntas y opciones con puntos
+# --- Diccionario de preguntas ---
 preguntas = {
     1: {
         "texto": "¿Qué tema central te atrae más?",
@@ -118,34 +124,70 @@ preguntas = {
     }
 }
 
-# Obtener número de pregunta actual
-p = st.session_state.pregunta
+# --- Pantalla de bienvenida ---
+if not st.session_state.inicio:
+    st.title("🎬 Test de Personalidad: ¿Qué película de Nolan eres tú?")
+    st.markdown("A través de **10 preguntas**, descubre qué película del director *Christopher Nolan* representa mejor tu personalidad.")
+    
+    st.session_state.nombre = st.text_input("👤 ¿Cuál es tu nombre?")
+    conoce = st.radio("¿Conoces a Christopher Nolan?", ["Sí", "No"], key="conoce_nolan")
 
-if p <= 10:
-    pregunta_actual = preguntas[p]
-    st.markdown(f"### Pregunta {p}: {pregunta_actual['texto']}")
-    opciones = pregunta_actual["opciones"]
+    st.markdown("**¿Quién es Christopher Nolan?**")
+    st.info("""
+    Christopher Nolan es un director británico reconocido por sus películas complejas, profundas y visualmente impactantes.  
+    Aborda temas como el tiempo, la memoria, los sueños y la moralidad.  
+    Obras destacadas: *Inception*, *Interstellar*, *The Dark Knight*, *Oppenheimer* y más.
+    """)
 
-    if pregunta_actual.get("multiple", False):
-        seleccion = st.multiselect("Selecciona todas las que conoces:", list(opciones.keys()))
+    if st.session_state.nombre and st.button("Iniciar test"):
+        st.session_state.inicio = True
+        st.rerun()
+
+# --- Preguntas del test ---
+elif st.session_state.pregunta <= 10:
+    p = st.session_state.pregunta
+    pregunta = preguntas[p]
+    st.markdown(f"### Pregunta {p}: {pregunta['texto']}")
+    opciones = list(pregunta["opciones"].keys())
+
+    if pregunta.get("multiple", False):
+        seleccion = st.multiselect("Selecciona todas las que apliquen:", opciones, key=f"sel_{p}")
     else:
-        seleccion = st.radio("Selecciona una opción:", list(opciones.keys()))
+        seleccion = st.radio("Selecciona una opción:", opciones, key=f"sel_{p}")
 
-    if st.button("Siguiente"):
-        if seleccion:
-            if isinstance(seleccion, list):
-                for s in seleccion:
-                    for peli in opciones[s]:
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("⬅️ Anterior", key=f"prev_{p}"):
+            if st.session_state.pregunta > 1:
+                st.session_state.pregunta -= 1
+                st.rerun()
+    with col2:
+        if st.button("➡️ Siguiente", key=f"next_{p}"):
+            if seleccion:
+                # Limpiar puntajes anteriores de esta pregunta
+                for pelis in pregunta["opciones"].values():
+                    for peli in pelis:
+                        st.session_state.puntajes[peli] -= st.session_state.respuestas.get(p, []).count(peli)
+
+                # Registrar respuesta
+                if isinstance(seleccion, list):
+                    st.session_state.respuestas[p] = []
+                    for s in seleccion:
+                        st.session_state.respuestas[p].extend(pregunta["opciones"][s])
+                        for peli in pregunta["opciones"][s]:
+                            st.session_state.puntajes[peli] += 1
+                else:
+                    st.session_state.respuestas[p] = pregunta["opciones"][seleccion]
+                    for peli in pregunta["opciones"][seleccion]:
                         st.session_state.puntajes[peli] += 1
-            else:
-                for peli in opciones[seleccion]:
-                    st.session_state.puntajes[peli] += 1
-            st.session_state.pregunta += 1
-        else:
-            st.warning("Por favor selecciona al menos una opción.")
 
-# Mostrar resultado final
-if p > 10:
+                st.session_state.pregunta += 1
+                st.rerun()
+            else:
+                st.warning("Selecciona al menos una opción.")
+
+# --- Resultado final ---
+else:
     st.success("¡Test completado!")
     peli_final = max(st.session_state.puntajes, key=st.session_state.puntajes.get)
     pelicula = df[df["Título"] == peli_final].iloc[0]
@@ -161,10 +203,18 @@ if p > 10:
         "Oppenheimer": "Eres reflexivo, profundo y te cuestionas el impacto de tus decisiones."
     }
 
-    st.image(pelicula["Imagen"], use_container_width=True)
-    st.markdown(f"## {pelicula['Título']} ({pelicula['Año']})")
-    st.write(f"**Género:** {pelicula['Género']}")
-    st.write(f"**Valoración:** {pelicula['Valoración']}")
-    st.write(f"**Sinopsis:** {pelicula['Sinopsis']}")
-    st.markdown(f"[Ver en Youtube]({pelicula['Enlace']})")
-    st.info(f" {frases.get(pelicula['Título'], '')}")
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        st.image(pelicula["Imagen"], use_container_width=True)
+    with col2:
+        st.markdown(f"## {pelicula['Título']} ({pelicula['Año']})")
+        st.write(f"**Género:** {pelicula['Género']}")
+        st.write(f"**Valoración:** {pelicula['Valoración']}")
+        st.write(f"**Sinopsis:** {pelicula['Sinopsis']}")
+        st.info(f"🎭 {frases.get(pelicula['Título'], '')}")
+        st.markdown(f"[📺 Ver tráiler]({pelicula['Enlace']})")
+
+    if st.button("🔄 Reiniciar test"):
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        st.rerun()
