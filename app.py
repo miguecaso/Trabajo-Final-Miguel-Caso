@@ -6,7 +6,7 @@ from collections import defaultdict
 st.markdown("""
     <style>
     .stApp {
-        background-image: url("https://img.freepik.com/foto-gratis/textura-pared-verde-lisa-llana_53876-129746.jpg?semt=ais_hybrid&w=740");
+        background-image: url("https://wallpapers.com/images/featured/fondos-solidos-morados-6m27kn7or229vcaa.jpg");
         background-size: cover;
         background-attachment: fixed;
         background-position: center;
