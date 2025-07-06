@@ -6,9 +6,9 @@ from collections import defaultdict
 df = pd.read_csv("peliculas_nolan_con_imagenes.csv")
 
 # Configuración de página
-st.set_page_config(page_title="Test Nolan", page_icon="🎬")
+st.set_page_config(page_title="Test Nolan")
 
-# --- Inicialización de estados ---
+# Inicialización de estados
 if "inicio" not in st.session_state:
     st.session_state.inicio = False
 if "nombre" not in st.session_state:
@@ -20,7 +20,7 @@ if "puntajes" not in st.session_state:
 if "respuestas" not in st.session_state:
     st.session_state.respuestas = {}
 
-# --- Diccionario de preguntas ---
+# Diccionario de preguntas
 preguntas = {
     1: {
         "texto": "¿Qué tema central te atrae más?",
@@ -124,12 +124,12 @@ preguntas = {
     }
 }
 
-# --- Pantalla de bienvenida ---
+# Pantalla de bienvenida
 if not st.session_state.inicio:
-    st.title("🎬 Test de Personalidad: ¿Qué película de Nolan eres tú?")
+    st.title("Test de Personalidad: ¿Qué película de Nolan eres tú?")
     st.markdown("A través de **10 preguntas**, descubre qué película del director *Christopher Nolan* representa mejor tu personalidad.")
     
-    st.session_state.nombre = st.text_input("👤 ¿Cuál es tu nombre?")
+    st.session_state.nombre = st.text_input("¿Cuál es tu nombre? (Obligatorio)")
     conoce = st.radio("¿Conoces a Christopher Nolan?", ["Sí", "No"], key="conoce_nolan")
 
     st.markdown("**¿Quién es Christopher Nolan?**")
@@ -143,7 +143,7 @@ if not st.session_state.inicio:
         st.session_state.inicio = True
         st.rerun()
 
-# --- Preguntas del test ---
+# Preguntas del test
 elif st.session_state.pregunta <= 10:
     p = st.session_state.pregunta
     pregunta = preguntas[p]
@@ -157,12 +157,12 @@ elif st.session_state.pregunta <= 10:
 
     col1, col2 = st.columns([1, 1])
     with col1:
-        if st.button("⬅️ Anterior", key=f"prev_{p}"):
+        if st.button("Anterior", key=f"prev_{p}"):
             if st.session_state.pregunta > 1:
                 st.session_state.pregunta -= 1
                 st.rerun()
     with col2:
-        if st.button("➡️ Siguiente", key=f"next_{p}"):
+        if st.button("Siguiente", key=f"next_{p}"):
             if seleccion:
                 # Limpiar puntajes anteriores de esta pregunta
                 for pelis in pregunta["opciones"].values():
@@ -186,7 +186,7 @@ elif st.session_state.pregunta <= 10:
             else:
                 st.warning("Selecciona al menos una opción.")
 
-# --- Resultado final ---
+# Resultado final
 else:
     st.success("¡Test completado!")
     peli_final = max(st.session_state.puntajes, key=st.session_state.puntajes.get)
@@ -214,7 +214,7 @@ else:
         st.info(f"🎭 {frases.get(pelicula['Título'], '')}")
         st.markdown(f"[📺 Ver tráiler]({pelicula['Enlace']})")
 
-    if st.button("🔄 Reiniciar test"):
+    if st.button("Reiniciar test"):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
