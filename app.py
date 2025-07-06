@@ -19,13 +19,10 @@ st.markdown("""
 # Aplicar estilo CSS para texto en color negro
 st.markdown("""
     <style>
-        html, body, [class*="css"] {
+        * {
             color: black !important;
         }
-        .stTextInput > div > div > input {
-            color: black !important;
-        }
-        .stRadio, .stMultiSelect, .stMarkdown, .stText, .stDataFrame {
+        input, textarea {
             color: black !important;
         }
     </style>
