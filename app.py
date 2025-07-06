@@ -218,18 +218,25 @@ else:
         st.markdown(f"[Ver en Youtube]({pelicula['Enlace']})")
 
 # Mostrar críticas positivas y negativas
-st.markdown("### Opiniones del público")
+    st.markdown("### Opiniones del público")
 
-positivas = criticas_df[(criticas_df["Título"] == peli_final) & (criticas_df["Tipo"] == "Positivas")]["Comentario"].tolist()
-negativas = criticas_df[(criticas_df["Título"] == peli_final) & (criticas_df["Tipo"] == "Negativas")]["Comentario"].tolist()
+    positivas = criticas_df[
+        (criticas_df["Título"] == peli_final) & 
+        (criticas_df["Tipo"] == "Positivas")
+    ]["Comentario"].tolist()
 
-with st.expander("Críticas positivas"):
-    for comentario in positivas:
-        st.write(f"• {comentario}")
+    negativas = criticas_df[
+        (criticas_df["Título"] == peli_final) & 
+        (criticas_df["Tipo"] == "Negativas")
+    ]["Comentario"].tolist()
 
-with st.expander("Críticas negativas"):
-    for comentario in negativas:
-        st.write(f"• {comentario}")
+    with st.expander("Críticas positivas"):
+        for comentario in positivas:
+            st.write(f"• {comentario}")
+
+    with st.expander("Críticas negativas"):
+        for comentario in negativas:
+            st.write(f"• {comentario}")
     
     if st.button("Reiniciar test"):
         for key in list(st.session_state.keys()):
