@@ -5,6 +5,9 @@ from collections import defaultdict
 # Cargar base de datos
 df = pd.read_csv("peliculas_nolan_con_imagenes.csv")
 
+# Cargar críticas desde archivo CSV
+criticas_df = pd.read_csv("criticas_nolan.csv")
+
 # Configuración de página
 st.set_page_config(page_title="Test Nolan")
 
@@ -20,7 +23,7 @@ if "puntajes" not in st.session_state:
 if "respuestas" not in st.session_state:
     st.session_state.respuestas = {}
 
-# Diccionario de preguntas
+# Preguntas para el Test
 preguntas = {
     1: {
         "texto": "¿Qué tema central te atrae más?",
@@ -129,7 +132,7 @@ if not st.session_state.inicio:
     st.title("Test de Personalidad: ¿Qué película de Nolan eres tú?")
     st.markdown("A través de **10 preguntas**, descubre qué película del director *Christopher Nolan* representa mejor tu personalidad.")
     
-    st.session_state.nombre = st.text_input("¿Cuál es tu nombre? (Obligatorio)")
+    st.session_state.nombre = st.text_input("¿Cuál es tu nombre? (Obligatorio) (Presionar Enter para Continuar")
     conoce = st.radio("¿Conoces a Christopher Nolan?", ["Sí", "No"], key="conoce_nolan")
 
     st.markdown("**¿Quién es Christopher Nolan?**")
@@ -212,8 +215,22 @@ else:
         st.write(f"**Valoración:** {pelicula['Valoración']}")
         st.write(f"**Sinopsis:** {pelicula['Sinopsis']}")
         st.info(f"{frases.get(pelicula['Título'], '')}")
-        st.markdown(f"Ver tráiler]({pelicula['Enlace']})")
+        st.markdown(f"[Ver en Youtube]({pelicula['Enlace']})")
 
+# Mostrar críticas positivas y negativas
+st.markdown("### Opiniones del público")
+
+positivas = criticas_df[(criticas_df["Título"] == peli_final) & (criticas_df["Tipo"] == "Positivas")]["Comentario"].tolist()
+negativas = criticas_df[(criticas_df["Título"] == peli_final) & (criticas_df["Tipo"] == "Negativas")]["Comentario"].tolist()
+
+with st.expander("Críticas positivas"):
+    for comentario in positivas:
+        st.write(f"• {comentario}")
+
+with st.expander("Críticas negativas"):
+    for comentario in negativas:
+        st.write(f"• {comentario}")
+    
     if st.button("Reiniciar test"):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
