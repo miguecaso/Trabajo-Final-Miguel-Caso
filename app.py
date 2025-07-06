@@ -5,9 +5,19 @@ from collections import defaultdict
 # Cargar base de datos
 df = pd.read_csv("peliculas_nolan_con_imagenes.csv")
 
-# Configuración de página
-st.set_page_config(page_title="Test Nolan", page_icon="🎬")
-st.title("Test de Personalidad: ¿Qué película de Nolan eres tú?")
+if "inicio" not in st.session_state:
+    st.session_state.inicio = True
+
+if st.session_state.inicio:
+    st.title("Bienvenido al Test de Personalidad Nolan")
+    nombre = st.text_input("¿Cómo te llamas?")
+    conoce = st.radio("¿Conoces a Christopher Nolan?", ["Sí", "No"])
+
+    if st.button("Comenzar Test"):
+        st.session_state.inicio = False
+
+if not st.session_state.inicio:
+    st.markdown("**Christopher Nolan** es un director británico reconocido por sus películas complejas, filosóficas y visualmente impactantes. Este test te ayudará a descubrir qué película de Nolan se parece más a ti.")
 
 # Inicializar estado
 if "pregunta" not in st.session_state:
