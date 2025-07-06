@@ -211,8 +211,25 @@ else:
         st.write(f"**Género:** {pelicula['Género']}")
         st.write(f"**Valoración:** {pelicula['Valoración']}")
         st.write(f"**Sinopsis:** {pelicula['Sinopsis']}")
-        st.info(f"🎭 {frases.get(pelicula['Título'], '')}")
-        st.markdown(f"[📺 Ver tráiler]({pelicula['Enlace']})")
+        st.info(f"{frases.get(pelicula['Título'], '')}")
+        st.markdown(f"Ver tráiler]({pelicula['Enlace']})")
+
+criticas_df = pd.read_csv("criticas_nolan.csv")
+
+# Mostrar críticas positivas y negativas
+st.markdown("### 🗣️ Opiniones sobre esta película")
+
+positivas = criticas_df[(criticas_df["Título"] == peli_final) & (criticas_df["Tipo"] == "Positivas")]["Comentario"].tolist()
+negativas = criticas_df[(criticas_df["Título"] == peli_final) & (criticas_df["Tipo"] == "Negativas")]["Comentario"].tolist()
+
+with st.expander("Críticas positivas"):
+    for c in positivas:
+        st.write(f"• {c}")
+
+with st.expander("Críticas negativas"):
+    for c in negativas:
+        st.write(f"• {c}")
+
 
     if st.button("Reiniciar test"):
         for key in list(st.session_state.keys()):
