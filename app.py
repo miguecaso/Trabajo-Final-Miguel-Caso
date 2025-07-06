@@ -6,7 +6,7 @@ from collections import defaultdict
 st.markdown("""
     <style>
     .stApp {
-        background-image: url("https://wallpapers.com/images/high/4k-black-3840-x-2160-background-brauz9m0zdygsagi.webp");
+        background-image: url("https://media.istockphoto.com/id/471620647/es/foto/azul-cepillo-trazos-en-horizontal-fondo.jpg?s=612x612&w=0&k=20&c=fEtb0xrcJWuv4cPyzdcb2g5-FdtPyzpPzvVxjk-0jOY=");
         background-size: cover;
         background-attachment: fixed;
         background-position: center;
