@@ -196,14 +196,14 @@ else:
     pelicula = df[df["Título"] == peli_final].iloc[0]
 
     frases = {
-        "Inception": "Eres creativo, complejo y vives entre ideas profundas.",
-        "Interstellar": "Eres curioso, sentimental y amas lo desconocido.",
-        "Memento": "Valoras la verdad, incluso si duele. Tu mente nunca descansa.",
-        "The Prestige": "Eres perfeccionista, apasionado y algo misterioso.",
-        "Tenet": "Te encanta el caos ordenado. Piensas en 4 dimensiones.",
-        "Dunkirk": "Eres realista, valiente y directo. El silencio también te dice mucho.",
-        "The Dark Knight": "Tienes un fuerte sentido de justicia, aunque luchas con tu oscuridad.",
-        "Oppenheimer": "Eres reflexivo, profundo y te cuestionas el impacto de tus decisiones."
+        "Inception": "Eres una persona creativa, que siempre está imaginando cosas nuevas. Te gusta pensar en temas profundos y hacer preguntas que no todos se hacen. Tu forma de ver el mundo es especial, porque no te quedas con lo que se ve por fuera, sino que buscas entender lo que hay detrás. Aunque a veces parezcas estar en tu propio mundo, es ahí donde nacen tus mejores ideas.",
+        "Interstellar": "Eres una persona curiosa, que siempre quiere aprender y descubrir cosas nuevas. Sientes todo con mucha intensidad, porque tu corazón está muy conectado con lo que vives. Y aunque a veces lo desconocido asusta a otros, tú lo amas, porque sabes que ahí es donde empieza lo más interesante.",
+        "Memento": "Eres alguien que valora la verdad, aunque a veces duela, porque sabes que solo así se crece. Tu mente nunca se detiene, siempre está pensando, imaginando o buscando respuestas. No te conformas con lo fácil, porque sabes que lo real y profundo es lo que realmente importa.",
+        "The Prestige": "Eres una persona perfeccionista, que cuida cada detalle y siempre quiere dar lo mejor. Haces todo con pasión, porque pones el corazón en lo que amas. A veces pareces misterioso, porque no todos logran entender lo que piensas o sientes, pero eso también es parte de tu encanto.",
+        "Tenet": "Te gusta el caos ordenado, ese desorden que solo tú entiendes y que tiene sentido en tu mundo. Tu forma de pensar es diferente, como si vieras las cosas desde varios ángulos a la vez. Piensas en muchas capas, en muchas ideas al mismo tiempo, como si tu mente funcionara en otra dimensión.",
+        "Dunkirk": "Eres una persona realista, que ve las cosas como son, sin adornos. No tienes miedo de decir lo que piensas, porque eres valiente y directo. No necesitas muchas palabras para entender; incluso el silencio te dice mucho, porque sabes leer lo que otros no dicen.",
+        "The Dark Knight": "Tienes un fuerte sentido de la justicia, siempre quieres hacer lo correcto y defender lo que crees. Pero también cargas con una parte oscura, con dudas o emociones difíciles que a veces te cuesta manejar. Aun así, sigues adelante, luchando por ser mejor sin dejar de ser tú.",
+        "Oppenheimer": "Eres una persona reflexiva, que piensa mucho antes de actuar. No haces las cosas por hacer, siempre buscas entender el porqué. Eres profundo, te haces preguntas que otros evitan, y te importa el impacto que tienen tus decisiones en los demás y en ti mismo."
     }
 
     col1, col2 = st.columns([1, 2])
