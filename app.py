@@ -164,10 +164,9 @@ if not st.session_state.inicio:
     Obras destacadas: *Inception*, *Interstellar*, *The Dark Knight*, *Oppenheimer* y más.
     """)
 
-    if nombre and st.button("Iniciar test"):
-    st.session_state.nombre = nombre
-    st.session_state.inicio = True
-    st.rerun()
+    if st.session_state.nombre and st.button("Iniciar test"):
+        st.session_state.inicio = True
+        st.rerun()
 
 # Preguntas del test
 elif st.session_state.pregunta <= 10:
