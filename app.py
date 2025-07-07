@@ -261,7 +261,6 @@ else:
             st.write(f"• {comentario}")
 
 # Reiniciar test
-    
     if st.button("Reiniciar test"):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
