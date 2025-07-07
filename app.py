@@ -154,7 +154,7 @@ if not st.session_state.inicio:
     st.title("Test de Personalidad: ¿Qué película de Nolan eres tú?")
     st.markdown("A través de **10 preguntas**, descubre qué película del director *Christopher Nolan* representa mejor tu personalidad.")
     
-    st.session_state.nombre = st.text_input("¿Cuál es tu nombre? (Obligatorio). Luego de escribir tú nombre, presionar enter para continuar.")
+    st.session_state.nombre = st.text_input("¿Cuál es tu nombre? (Obligatorio). Luego de escribir tu nombre, presiona Enter para que aparezca el ícono y puedas iniciar el test.")
     conoce = st.radio("¿Conoces a Christopher Nolan?", ["Sí", "No"], key="conoce_nolan")
 
     st.markdown("**¿Quién es Christopher Nolan?**")
