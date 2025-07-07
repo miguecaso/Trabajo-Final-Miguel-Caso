@@ -19,9 +19,8 @@ st.markdown("""
 # Aplicar estilo CSS para texto en color negro
 st.markdown("""
     <style>
-        html, body, [class*="css"] {
-            color: black !important;
-        }
+        * { color: black !important; }
+        input { color: initial !important; }
     </style>
 """, unsafe_allow_html=True)
 
