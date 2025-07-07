@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from collections import defaultdict
 
-# Fondo con imagen de cielo nocturno estrellado
+# Fondo con imagen 
 st.markdown("""
     <style>
     .stApp {
@@ -16,18 +16,13 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Aplicar estilo CSS para texto en color negro
+# Aplicar estilo para texto en color negro
 st.markdown("""
     <style>
-        * {
-            color: black !important;
-        }
-        input, textarea {
-            color: black !important;
-        }
+        * { color: black !important; }
+        input { color: initial !important; }
     </style>
 """, unsafe_allow_html=True)
-
 
 # Cargar base de datos
 df = pd.read_csv("peliculas_nolan_con_imagenes.csv")
@@ -264,6 +259,8 @@ else:
     with st.expander("Críticas negativas"):
         for comentario in negativas:
             st.write(f"• {comentario}")
+
+# Reiniciar test
     
     if st.button("Reiniciar test"):
         for key in list(st.session_state.keys()):
