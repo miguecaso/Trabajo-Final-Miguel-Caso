@@ -19,11 +19,15 @@ st.markdown("""
 # Aplicar estilo CSS para texto en color negro
 st.markdown("""
     <style>
-        html, body, .stApp, .stMarkdown, .stText, .stRadio label, .stMultiSelect label {
+        * {
+            color: black !important;
+        }
+        input, textarea {
             color: black !important;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 # Cargar base de datos
 df = pd.read_csv("peliculas_nolan_con_imagenes.csv")
